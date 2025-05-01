@@ -1,0 +1,51 @@
+{% extends 'pageindex/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Milestone{% endblock %}
+
+{% block content %}
+<!-- Contact Section Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="mb-3">Contact Us</h1>
+            <p class="lead">Have questions or need help? Reach out to us!</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h5>Contact Details</h5>
+                <p><i class="fa fa-map-marker-alt me-2"></i> 123 Milestone Street, Tech City</p>
+                <p><i class="fa fa-envelope me-2"></i> support@milestone.com</p>
+                <p><i class="fa fa-phone-alt me-2"></i> +1 234 567 890</p>
+                <div class="mt-4">
+                    <iframe class="w-100" height="250" src="https://maps.google.com/maps?q=kochi&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h5>Send Us a Message</h5>
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                        <label for="email">Your Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px;" required></textarea>
+                        <label for="message">Message</label>
+                    </div>
+                    <button class="btn btn-success py-3 px-5" type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Section End -->
+{% endblock %}

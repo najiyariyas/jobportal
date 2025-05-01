@@ -1,0 +1,24 @@
+<!-- templates/dashboard/employer_dashboard.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ employer_profile.company_name }}</h1>
+    <p>Location: {{ employer_profile.location }}</p>
+    <p>Company Website: <a href="{{ employer_profile.company_website }}">{{ employer_profile.company_website }}</a></p>
+
+    <h2>Job Listings</h2>
+    <ul>
+        {% for job in employer_profile.jobs.all %}
+            <li>{{ job.title }} - {{ job.location }} - {{ job.salary }}</li>
+        {% empty %}
+            <li>No jobs posted yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

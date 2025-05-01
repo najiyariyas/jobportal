@@ -1,0 +1,31 @@
+<!-- templates/dashboard/jobseeker_dashboard.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Seeker Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ jobseeker_profile.user.username }}</h1>
+    <p>Location: {{ jobseeker_profile.location }}</p>
+    <p>Bio: {{ jobseeker_profile.bio }}</p>
+    <p>Skills: 
+        {% for skill in jobseeker_profile.skills.all %}
+            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            No skills listed.
+        {% endfor %}
+    </p>
+
+    <h2>Applied Jobs</h2>
+    <ul>
+        {% for application in jobseeker_profile.user.applications.all %}
+            <li>{{ application.job.title }} - Status: {{ application.status }}</li>
+        {% empty %}
+            <li>No applications yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
