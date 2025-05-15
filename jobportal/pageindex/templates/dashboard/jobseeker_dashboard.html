@@ -1,31 +1,103 @@
-<!-- templates/dashboard/jobseeker_dashboard.html -->
+{% extends "pageindex/base.html" %}
+{% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Job Seeker Dashboard</title>
-</head>
-<body>
-    <h1>Welcome, {{ jobseeker_profile.user.username }}</h1>
-    <p>Location: {{ jobseeker_profile.location }}</p>
-    <p>Bio: {{ jobseeker_profile.bio }}</p>
-    <p>Skills: 
-        {% for skill in jobseeker_profile.skills.all %}
-            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+{% block title %}Dashboard | Job Seeker - Milestone{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Welcome Card -->
+            <div class="card-body d-flex justify-content-between align-items-start">
+                <div>
+                    <h3 class="text-success">Welcome, {{ jobseeker_profile.user.get_full_name|default:jobseeker_profile.user.username }}</h3>
+                    <p><strong>Email:</strong> {{ jobseeker_profile.user.email }}</p>
+                    <p><strong>Location:</strong> {{ jobseeker_profile.location }}</p>
+                    <p><strong>Bio:</strong> {{ jobseeker_profile.bio|default:"No bio available." }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'edit_jobseeker_profile' %}" class="btn btn-outline-success">Edit Profile</a>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Skills</h5>
+                </div>
+                <div class="card-body">
+                    {% if jobseeker_profile.skills.all %}
+                        <ul class="list-inline">
+                              {% for skill in jobseeker_profile.skills.all %}
+                              <li class="list-inline-item m-1">{{ skill.name }}</li>
+                              {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No skills listed.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Applied Jobs -->
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Applied Jobs</h5>
+                </div>
+                <div class="card-body">
+                    {% if jobseeker_profile.user.applications.all %}
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Job Title</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                        <th>Applied On</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for application in jobseeker_profile.user.applications.all %}
+                                        <tr>
+                                            <td>{{ application.job.title }}</td>
+                                            <td>{{ application.job.employer.company_name }}</td>
+                                            <td>{{ application.status }}</td>
+                                            <td>{{ application.applied_at|date:"M d, Y" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>No job applications found.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+           <!-- Available Jobs Section -->
+<div class="card shadow border-0 mb-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Available Jobs</h5>
+    </div>
+    <div class="card-body">
+        {% for job in available_jobs %}
+            <div class="job-item p-3 border rounded mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">{{ job.title }}</h5>
+                        <p class="mb-1"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ job.location }}</p>
+                        <p class="mb-1"><i class="far fa-clock text-primary me-2"></i>{{ job.job_type }}</p>
+                        <p class="mb-1"><i class="far fa-money-bill-alt text-primary me-2"></i>${{ job.salary }}</p>
+                    </div>
+                    <div class="text-end">
+                        <a class="btn btn-primary" href="{% url 'job_detail' job.id %}">Apply Now</a>
+                        <br>
+                        <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ job.deadline|date:"d M, Y" }}</small>
+                    </div>
+                </div>
+            </div>
         {% empty %}
-            No skills listed.
+            <p class="text-center">No available jobs at the moment.</p>
         {% endfor %}
-    </p>
-
-    <h2>Applied Jobs</h2>
-    <ul>
-        {% for application in jobseeker_profile.user.applications.all %}
-            <li>{{ application.job.title }} - Status: {{ application.status }}</li>
-        {% empty %}
-            <li>No applications yet.</li>
-        {% endfor %}
-    </ul>
-
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}

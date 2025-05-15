@@ -1,0 +1,56 @@
+{% extends 'pageindex/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Job Detail Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row gy-5 gx-4">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center mb-5">
+                    <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-1.jpg' %}" alt="Company Logo" style="width: 80px; height: 80px;">
+                    <div class="text-start ps-4">
+                        <h3 class="mb-3">{{ job.title }}</h3>
+                        <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ job.location }}</span>
+                        <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{ job.job_type }}</span>
+                        <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{% if job.salary %}${{ job.salary }}{% else %}Not specified{% endif %}</span>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Job Description</h4>
+                    <p>{{ job.description|linebreaks }}</p>
+                </div>
+
+                <div class="mb-5">
+                    <h4 class="mb-3">Company</h4>
+                    <p><strong>{{ job.company.company_name }}</strong></p>
+                    {% if job.company.website %}
+                        <p>Website: <a href="{{ job.company.website }}" target="_blank">{{ job.company.website }}</a></p>
+                    {% endif %}
+                    {% if job.company.description %}
+                        <p>{{ job.company.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bg-light p-4 mb-4 wow fadeIn" data-wow-delay="0.1s">
+                    <h4 class="mb-4">Job Summary</h4>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>Posted On: {{ job.posted_at|date:"d M Y" }}</p>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>Type: {{ job.job_type }}</p>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>Location: {{ job.location }}</p>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>Salary: {% if job.salary %}${{ job.salary }}{% else %}Not specified{% endif %}</p>
+                    <p><i class="fa fa-angle-right text-primary me-2"></i>Deadline: {% if job.deadline %}{{ job.deadline|date:"d M Y" }}{% else %}Not specified{% endif %}</p>
+                </div>
+
+                <div class="bg-light p-4 wow fadeIn" data-wow-delay="0.1s">
+                    <h4 class="mb-4">Apply For The Job</h4>
+                    <a class="btn btn-primary w-100" href="#">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Job Detail End -->
+{% endblock %}

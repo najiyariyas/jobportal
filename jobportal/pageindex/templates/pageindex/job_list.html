@@ -1,8 +1,25 @@
 {% extends "pageindex/base.html" %}
-{% load static %}
-{% block title %}Home | Milestone{% endblock %}
+{% block title %}Job Listings{% endblock %}
 
 {% block content %}
+<h2 class="text-2xl font-bold mb-4">Available Jobs</h2>
 
-  <!-- your page‑specific markup -->
+{% if jobs %}
+    <ul class="space-y-4">
+        {% for job in jobs %}
+            <li class="border p-4 rounded shadow">
+                <h3 class="text-xl font-semibold">{{ job.title }}</h3>
+                <p><strong>Company:</strong> {{ job.company.company_name }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                <p><strong>Type:</strong> {{ job.job_type }}</p>
+                <p>{{ job.description|truncatechars:150 }}</p>
+                <a href="{% url 'job_detail' job.id %}" class="text-blue-600 underline">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs available right now.</p>
+{% endif %}
+
 {% endblock %}
+

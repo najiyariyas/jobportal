@@ -23,22 +23,22 @@
             </div>
             <div class="col-lg-6">
                 <h5>Send Us a Message</h5>
-                <form method="post" action="#">
+                <form method="post" action="{% url 'contact' %}">
                     {% csrf_token %}
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        <input type="text" class="form-control" id="name"name="name" placeholder="Your Name" required>
                         <label for="name">Your Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                        <input type="email" class="form-control" id="email"name="email" placeholder="Your Email" required>
                         <label for="email">Your Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+                        <input type="text" class="form-control" id="subject"name="subject" placeholder="Subject" required>
                         <label for="subject">Subject</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px;" required></textarea>
+                        <textarea class="form-control" placeholder="Leave a message here" id="message"name="message" style="height: 150px;" required></textarea>
                         <label for="message">Message</label>
                     </div>
                     <button class="btn btn-success py-3 px-5" type="submit">Send Message</button>

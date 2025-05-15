@@ -3,23 +3,96 @@
 {% block title %}Register | Milestone{% endblock %}
 
 {% block content %}
-<div style="max-width: 500px; margin: auto; padding: 30px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-    <h2 style="text-align: center; font-family: 'Arial', sans-serif; color: #333;">Create an Account</h2>
-    
-    <form method="POST" enctype="multipart/form-data" style="font-family: 'Arial', sans-serif;">
+<style>
+    .register-container {
+        max-width: 450px;
+        margin: 40px auto;
+        padding: 40px 30px;
+        background: lightgray;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .register-title {
+    text-align: center;
+    color: #28a745 !important; /* Force success green */
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .register-form p {
+        margin-bottom: 15px;
+    }
+
+    .register-form input, .register-form select, .register-form textarea {
+        width: 100%;
+        padding: 12px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    .register-form input:focus,
+    .register-form select:focus,
+    .register-form textarea:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    .register-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .register-btn:hover {
+        background-color: #45a049;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 14px;
+    }
+
+    .login-link a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .login-link a:hover {
+        color: #388e3c;
+    }
+</style>
+
+<div class="register-container">
+    <h2 class="register-title">Create Your Account</h2>
+
+    <form method="POST" enctype="multipart/form-data" autocomplete="off" class="register-form">
         {% csrf_token %}
-        
-        <div style="margin-bottom: 20px;">
-            {{ form.as_p }}
-        </div>
-        
-        <button type="submit" style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-            Register
-        </button>
+        {{ form.as_p }}
+        <button type="submit" class="register-btn">Register</button>
     </form>
 
-    <p style="text-align: center; margin-top: 20px; font-family: 'Arial', sans-serif;">
-        Already have an account? <a href="{% url 'login' %}" style="color: #4CAF50; text-decoration: none; font-weight: bold;">Login</a>
+    <p class="login-link">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
     </p>
 </div>
 {% endblock %}
