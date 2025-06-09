@@ -1,0 +1,31 @@
+{% extends 'pageindex/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">{{ category.name }} Jobs</h2>
+
+    {% if jobs %}
+        <div class="row">
+            {% for job in jobs %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm rounded">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ job.title }}</h5>
+                            <p class="card-text">
+                                <strong>Company:</strong> {{ job.company.company_name }}<br>
+                                <strong>Location:</strong> {{ job.location }}<br>
+                                <strong>Type:</strong> {{ job.job_type }}<br>
+                                <strong>Salary:</strong> {{ job.salary|default:"Negotiable" }}<br>
+                                <strong>Posted:</strong> {{ job.posted_at|date:"M d, Y" }}
+                            </p>
+                            <a href="{% url 'job_detail' job.id %}" class="btn btn-primary mt-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">No jobs available in this category at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

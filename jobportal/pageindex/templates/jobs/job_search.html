@@ -1,0 +1,82 @@
+{% extends "pageindex/base.html" %}
+{% block title %}Job Search{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Filter Jobs</h5>
+                    <form id="filter-form">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Job Type</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="job_type" value="Full-time" id="fulltime">
+                                <label class="form-check-label" for="fulltime">Full-time</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="job_type" value="Part-time" id="parttime">
+                                <label class="form-check-label" for="parttime">Part-time</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="job_type" value="Internship" id="internship">
+                                <label class="form-check-label" for="internship">Internship</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="job_type" value="Contract" id="contract">
+                                <label class="form-check-label" for="contract">Contract</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="location" class="form-label fw-semibold">Location</label>
+                            <input type="text" name="location" class="form-control" placeholder="e.g., New York">
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Apply Filters</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Listings -->
+        <div class="col-md-9">
+            <div class="mb-3">
+                <input type="text" id="search-keyword" class="form-control" placeholder="🔍 Search jobs by keyword...">
+            </div>
+            <div id="job-results">
+                {% include 'jobs/partials/job_list.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- AJAX Filter Script -->
+<script>
+function fetchJobs() {
+    let formData = $('#filter-form').serialize();
+    let keyword = $('#search-keyword').val();
+    $.ajax({
+        url: "{% url 'ajax_job_filter' %}",
+        data: formData + '&keyword=' + encodeURIComponent(keyword),
+        success: function(data) {
+            $('#job-results').html(data.html);
+        }
+    });
+}
+
+$('#filter-form').on('submit', function(e) {
+    e.preventDefault();
+    fetchJobs();
+});
+
+$('#search-keyword').on('keyup', function() {
+    fetchJobs();
+});
+</script>
+{% endblock %}

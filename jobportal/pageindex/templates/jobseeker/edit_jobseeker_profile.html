@@ -1,0 +1,24 @@
+{% extends "pageindex/base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile - Milestone{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Edit Profile</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a href="{% url 'jobseeker_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'pageindex/base.html' %}
+{% block content %}
+  <div class="container py-5">
+      <h2>Submit Your Testimonial</h2>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3">
+              <label for="id_name" class="form-label">Your Name</label>
+              {{ form.name }}
+          </div>
+          <div class="mb-3">
+              <label for="id_job_title" class="form-label">Job Title</label>
+              {{ form.job_title }}
+          </div>
+          <div class="mb-3">
+              <label for="id_company" class="form-label">Company (Optional)</label>
+              {{ form.company }}
+          </div>
+          <div class="mb-3">
+              <label for="id_message" class="form-label">Your Testimonial</label>
+              {{ form.message }}
+          </div>
+          <div class="mb-3">
+              <label for="id_photo" class="form-label">Your Photo</label>
+              {{ form.photo }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+{% endblock %}

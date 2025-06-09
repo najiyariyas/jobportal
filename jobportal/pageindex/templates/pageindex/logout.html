@@ -1,0 +1,14 @@
+{% extends "pageindex/base.html" %}
+{% load static %}
+
+{% block title %}Logged Out | Milestone{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: #f5f7fa;">
+    <div style="text-align: center; padding: 40px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+        <h2 style="color: #333;">You have been logged out successfully!</h2>
+        <p style="margin-top: 20px;">Thank you for visiting Milestone Job Portal.</p>
+        <a href="{% url 'login' %}" style="margin-top: 30px; display: inline-block; background: #4facfe; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Login Again</a>
+    </div>
+</div>
+{% endblock %}
